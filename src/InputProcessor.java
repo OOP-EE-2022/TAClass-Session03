@@ -8,16 +8,20 @@ public class InputProcessor {
         // add student firstName lastName nationalCode studentId department
         // add professor firstName lastName nationalCode department
         // add course name num unit group nationalCode preCourse1,preCourse2,...
+        // show students
+        // show professors
         while (true) {
             String input = scanner.nextLine();
             if (input.startsWith("add student")) {
-                String[] splitInput = input.split("\\s");
-                processAddStudent(splitInput[2], splitInput[3], splitInput[4],
-                        Integer.parseInt(splitInput[5]), splitInput[6]);
+                processAddStudent(input.split("\\s"));
             } else if (input.startsWith("add professor")) {
-                processAddProfessor();
+                processAddProfessor(input.split("\\s"));
             } else if (input.startsWith("add course")) {
-                processAddCourse();
+                processAddCourse(input.split("\\s"));
+            } else if (input.equalsIgnoreCase("show students")) {
+                processShowStudents();
+            } else if (input.startsWith("show professors")) {
+                processShowProfessors();
             } else if (input.equalsIgnoreCase("end")) {
                 break;
             } else {
@@ -26,16 +30,27 @@ public class InputProcessor {
         }
     }
 
-    private void processAddStudent(String firstName, String lastName, String nationalCode,
-                                   int studentId, String department) {
-        controller.addStudent(firstName, lastName, nationalCode, studentId, department);
+    private void processAddStudent(String[] splitInput) {
+        String output = controller.addStudent(splitInput[2], splitInput[3], splitInput[4], Integer.parseInt(splitInput[5]), splitInput[6]);
+        System.out.println(output);
     }
 
-    private void processAddProfessor() {
+    private void processAddProfessor(String[] splitInput) {
+        String output = controller.addProfessor(splitInput[2], splitInput[3], splitInput[4], splitInput[5]);
+        System.out.println(output);
+    }
+
+    private void processAddCourse(String[] splitInput) {
 
     }
 
-    private void processAddCourse() {
+    private void processShowStudents() {
+        String output = controller.showStudents();
+        System.out.println(output);
+    }
 
+    private void processShowProfessors() {
+        String output = controller.showProfessors();
+        System.out.println(output);
     }
 }
