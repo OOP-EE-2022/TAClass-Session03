@@ -1,3 +1,6 @@
+package model;
+
+
 public class Student extends Person {
     private int studentId;
     private String department;
@@ -7,6 +10,11 @@ public class Student extends Person {
         super(firstName, lastName, nationalCode);
         this.studentId = studentId;
         this.department = department;
+    }
+
+    @Override
+    public String getType() {
+        return "Student";
     }
 
     public String getFirstName() {

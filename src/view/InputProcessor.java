@@ -1,3 +1,7 @@
+package view;
+
+import controller.Controller;
+
 import java.util.Scanner;
 
 public class InputProcessor {
@@ -7,9 +11,12 @@ public class InputProcessor {
     public void start() {
         // add student firstName lastName nationalCode studentId department
         // add professor firstName lastName nationalCode department
-        // add course name num unit group nationalCode preCourse1,preCourse2,...
+        // add course name num unit group professorNationalCode preCourse1,preCourse2,...
+        // add course name num unit group professorNationalCode
+        // set preCourses num preCourse1,preCourse2,...
         // show students
         // show professors
+        // show people
         while (true) {
             String input = scanner.nextLine();
             if (input.startsWith("add student")) {
@@ -22,6 +29,8 @@ public class InputProcessor {
                 processShowStudents();
             } else if (input.startsWith("show professors")) {
                 processShowProfessors();
+            } else if (input.equalsIgnoreCase("show people")) {
+                processShowPeople();
             } else if (input.equalsIgnoreCase("end")) {
                 break;
             } else {
@@ -41,7 +50,19 @@ public class InputProcessor {
     }
 
     private void processAddCourse(String[] splitInput) {
-
+        // add course name num unit group professorNationalCode preCourse1,preCourse2,...
+        // add course name num unit group professorNationalCode
+        String output;
+        if (splitInput.length == 7) {
+            output = controller.addCourse(splitInput[2], Integer.parseInt(splitInput[3]),
+                    Integer.parseInt(splitInput[4]), Integer.parseInt(splitInput[5]),
+                    splitInput[6]);
+        } else {
+            output = controller.addCourse(splitInput[2], Integer.parseInt(splitInput[3]),
+                    Integer.parseInt(splitInput[4]), Integer.parseInt(splitInput[5]),
+                    splitInput[6], splitInput[7]);
+        }
+        System.out.println(output);
     }
 
     private void processShowStudents() {
@@ -51,6 +72,11 @@ public class InputProcessor {
 
     private void processShowProfessors() {
         String output = controller.showProfessors();
+        System.out.println(output);
+    }
+
+    private void processShowPeople() {
+        String output = controller.showPeople();
         System.out.println(output);
     }
 }
