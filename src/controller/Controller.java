@@ -6,12 +6,37 @@ import model.Professor;
 import model.Student;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Controller {
     ArrayList<Student> students = new ArrayList<>();
     ArrayList<Professor> professors  = new ArrayList<>();
     ArrayList<Person> people = new ArrayList<>();
     ArrayList<Course> courses = new ArrayList<>();
+
+    public String takeCourse(int studentId, int courseNum) {
+        Student student = searchStudentByStudentId(studentId);
+        if (student == null) {
+            return "student ID not found!";
+        }
+        Course course = searchCourse(courseNum);
+        if (course == null) {
+            return "course not found!";
+        }
+        return student.takeCourse(course);
+    }
+
+    public String dropCourse(int studentId, int courseNum) {
+        Student student = searchStudentByStudentId(studentId);
+        if (student == null) {
+            return "student ID not found!";
+        }
+        Course course = searchCourse(courseNum);
+        if (course == null) {
+            return "course not found!";
+        }
+        return student.dropCourse(course);
+    }
 
     public String addStudent(String firstName, String lastName, String nationalCode,
                            int studentId, String department) {
@@ -79,9 +104,7 @@ public class Controller {
     public String showStudents() {
         StringBuilder output = new StringBuilder("");
         for (Student student : students) {
-            output.append(student.getType()).append(" ").append(student.getFirstName())
-                    .append(", ").append(student.getLastName()).append(", ")
-                    .append(student.getStudentId()).append("\n");
+            output.append(student);
         }
         return output.toString();
     }

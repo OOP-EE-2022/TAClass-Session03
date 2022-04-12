@@ -17,6 +17,8 @@ public class InputProcessor {
         // show students
         // show professors
         // show people
+        // take course studentId num
+        // drop course studentId num
         while (true) {
             String input = scanner.nextLine();
             if (input.startsWith("add student")) {
@@ -31,12 +33,26 @@ public class InputProcessor {
                 processShowProfessors();
             } else if (input.equalsIgnoreCase("show people")) {
                 processShowPeople();
+            } else if (input.equalsIgnoreCase("take course")) {
+                processTakeCourse(input.split("\\s"));
+            } else if (input.equalsIgnoreCase("drop course")) {
+                processDropCourse(input.split("\\s"));
             } else if (input.equalsIgnoreCase("end")) {
                 break;
             } else {
                 System.err.println("Invalid command!");
             }
         }
+    }
+
+    private void processTakeCourse(String[] splitInput) {
+        String output = controller.takeCourse(Integer.parseInt(splitInput[2]), Integer.parseInt(splitInput[3]));
+        System.out.println(output);
+    }
+
+    private void processDropCourse(String[] splitInput) {
+        String output = controller.dropCourse(Integer.parseInt(splitInput[2]), Integer.parseInt(splitInput[3]));
+        System.out.println(output);
     }
 
     private void processAddStudent(String[] splitInput) {

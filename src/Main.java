@@ -1,3 +1,4 @@
+import model.Person;
 import view.InputProcessor;
 
 public class Main {
